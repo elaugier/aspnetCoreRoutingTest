@@ -17,7 +17,13 @@ namespace test{
 
         public Task RouteAsync(RouteContext context)
         {
-            return context.HttpContext.Response.WriteAsync("OK", default(CancellationToken));
+            context.Handler = async c =>
+            {
+                await c.Response.WriteAsync("OK", default(CancellationToken));
+            };
+
+            return Task.FromResult(0);
+
         }
     }
 }
